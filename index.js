@@ -44,9 +44,11 @@ function calCrCl() {
 
   // if input valid, then calulate CrCl here
   if (sex === "male") {
-    return `CrCl = ${((140 - age) * weight) / (72 * cr)} mL/min`;
+    return `CrCl = ${(((140 - age) * weight) / (72 * cr)).toFixed(1)} mL/min`;
   } else {
-    return `CrCl = ${(((140 - age) * weight) / (72 * cr)) * 0.85} mL/min`;
+    return `CrCl = ${((((140 - age) * weight) / (72 * cr)) * 0.85).toFixed(
+      1
+    )} mL/min`;
   }
 }
 
