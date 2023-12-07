@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import calculate from "./calculate";
+import clsx from "clsx";
 
 export default function Home() {
   const [info, setInfo] = useState({
@@ -9,7 +11,7 @@ export default function Home() {
     weightUnit: "kg",
     weight: "45",
     crUnit: "umol",
-    crLvl: "100",
+    crLvl: "1",
   });
 
   return (
@@ -21,13 +23,20 @@ export default function Home() {
         <label htmlFor="sex-selector">Sex</label>
         <div id="sex-selector" className="flex mb-4">
           <button
-            className="border-r-0 border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx(
+              "border-r-0 border-2 border-black p-2 hover:bg-gray-300",
+              {
+                "bg-gray-300": info.sex === "male",
+              }
+            )}
             onClick={() => setInfo({ ...info, sex: "male" })}
           >
             Male
           </button>
           <button
-            className="border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx("border-2 border-black p-2 hover:bg-gray-300", {
+              "bg-gray-300": info.sex === "female",
+            })}
             onClick={() => setInfo({ ...info, sex: "female" })}
           >
             Female
@@ -50,13 +59,20 @@ export default function Home() {
             onChange={(e) => setInfo({ ...info, weight: e.target.value })}
           />
           <button
-            className="border-x-0 border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx(
+              "border-x-0 border-2 border-black p-2 hover:bg-gray-300",
+              {
+                "bg-gray-300": info.weightUnit === "kg",
+              }
+            )}
             onClick={() => setInfo({ ...info, weightUnit: "kg" })}
           >
             kg
           </button>
           <button
-            className="border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx("border-2 border-black p-2 hover:bg-gray-300", {
+              "bg-gray-300": info.weightUnit === "lbs",
+            })}
             onClick={() => setInfo({ ...info, weightUnit: "lbs" })}
           >
             lbs
@@ -76,26 +92,57 @@ export default function Home() {
             }
           />
           <button
-            className="border-x-0 border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx(
+              "border-x-0 border-2 border-black p-2 hover:bg-gray-300",
+              {
+                "bg-gray-300": info.crUnit === "umol",
+              }
+            )}
             onClick={() => setInfo({ ...info, crUnit: "umol" })}
           >
             umol/L
           </button>
           <button
-            className="border-2 border-black p-2 hover:bg-gray-300"
+            className={clsx("border-2 border-black p-2 hover:bg-gray-300", {
+              "bg-gray-300": info.crUnit === "mg",
+            })}
             onClick={() => setInfo({ ...info, crUnit: "mg" })}
           >
             mg/dL
           </button>
         </div>
-        <button className="border-2 border-black w-1/2 self-center py-1 hover:bg-gray-300">
-          Calculate
-        </button>
-        <div>
-          {info.sex} {info.age} {info.weight} {info.crLvl} {info.weightUnit}{" "}
-          {info.crUnit}
+        <div className="flex justify-center">
+          <div className="flex flex-col divide-y-2 divide-black w-1/3">
+            <div className="flex gap-1 justify-center">
+              <div>(</div>
+              <div>140</div>
+              <div>-</div>
+              <div className="text-pink-400">{info.age}</div>
+              <div>)</div>
+              <div>x</div>
+              <div className="text-pink-400">{info.weight}</div>
+            </div>
+            <div className="flex gap-1 justify-center">
+              <div>72</div>
+              <div>x</div>
+              <div className="text-pink-400">{info.crLvl}</div>
+            </div>
+          </div>
+          {info.sex === "female" ? (
+            <div className="flex flex-col justify-center ml-1">
+              <div className="flex gap-1">
+                <div>x</div>
+                <div>0.85</div>
+              </div>
+            </div>
+          ) : null}
+          <div className="flex flex-col justify-center ml-1">
+            <div>=</div>
+          </div>
+          <div className="flex flex-col justify-center ml-1">
+            <div className="border-b-2 border-black">{calculate(info)}</div>
+          </div>
         </div>
-        <div></div>
       </div>
     </main>
   );
