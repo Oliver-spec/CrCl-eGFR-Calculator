@@ -112,7 +112,7 @@ export default function Home() {
           </button>
         </div>
         <div className="flex justify-center">
-          <div className="flex flex-col divide-y-2 divide-black w-1/3">
+          <div className="flex flex-col divide-y-2 divide-black w-2/5">
             <div className="flex gap-1 justify-center">
               <div>(</div>
               <div>140</div>
@@ -121,11 +121,23 @@ export default function Home() {
               <div>)</div>
               <div>x</div>
               <div className="text-pink-400">{info.weight}</div>
+              {info.weightUnit === "lbs" ? (
+                <>
+                  <div>/</div>
+                  <div>2.2</div>
+                </>
+              ) : null}
             </div>
             <div className="flex gap-1 justify-center">
               <div>72</div>
               <div>x</div>
               <div className="text-pink-400">{info.crLvl}</div>
+              {info.crUnit === "umol" ? (
+                <>
+                  <div>/</div>
+                  <div>88.4</div>
+                </>
+              ) : null}
             </div>
           </div>
           {info.sex === "female" ? (
