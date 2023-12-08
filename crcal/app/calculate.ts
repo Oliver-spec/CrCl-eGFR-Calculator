@@ -22,7 +22,7 @@ export default function calculate(info: Info) {
     weight = String(Number(weight) / 2.2);
   }
 
-  if (crUnit === "umol/L") {
+  if (crUnit === "umol") {
     crLvl = String(Number(crLvl) / 88.4);
   }
 
