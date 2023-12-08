@@ -8,8 +8,11 @@ export default function calculate(info: Info) {
   } else if (
     !(
       /^\d+$/.test(age) &&
+      Number(age) !== 0 &&
       /^\d+\.?\d*$/.test(weight) &&
-      /^\d+\.?\d*$/.test(crLvl)
+      Number(weight) !== 0 &&
+      /^\d+\.?\d*$/.test(crLvl) &&
+      Number(crLvl) !== 0
     )
   ) {
     return "Invalid information";

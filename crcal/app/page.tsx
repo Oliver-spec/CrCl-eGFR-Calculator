@@ -11,7 +11,7 @@ export default function Home() {
     weightUnit: "kg",
     weight: "45",
     crUnit: "umol",
-    crLvl: "1",
+    crLvl: "0.85",
   });
 
   return (
@@ -46,17 +46,43 @@ export default function Home() {
         <input
           id="age-input"
           type="text"
-          className={`text-lg focus:outline-none p-1 w-full border-2 border-black mb-4`}
-          onChange={(e) => setInfo({ ...info, age: e.target.value })}
+          className={clsx(
+            `text-lg focus:outline-none p-1 w-full border-2 border-black mb-4`,
+            {
+              "border-red-600": !(
+                info.age &&
+                /^\d+$/.test(info.age) &&
+                Number(info.age) !== 0
+              ),
+            }
+          )}
+          onChange={(e) => {
+            if (e.target.value.length <= 3) {
+              setInfo({ ...info, age: e.target.value });
+            }
+          }}
           value={info.age}
         />
         <label htmlFor="weight-input">Weight</label>
         <div id="weight-input" className="flex mb-4">
           <input
             type="text"
-            className={`text-lg focus:outline-none p-1 w-full border-2 border-black`}
+            className={clsx(
+              `text-lg focus:outline-none p-1 w-full border-2 border-black`,
+              {
+                "border-red-600": !(
+                  info.weight &&
+                  /^\d+\.?\d*$/.test(info.weight) &&
+                  Number(info.weight) !== 0
+                ),
+              }
+            )}
             value={info.weight}
-            onChange={(e) => setInfo({ ...info, weight: e.target.value })}
+            onChange={(e) => {
+              if (e.target.value.length <= 3) {
+                setInfo({ ...info, weight: e.target.value });
+              }
+            }}
           />
           <button
             className={clsx(
@@ -82,14 +108,25 @@ export default function Home() {
         <div id="cr-input" className="flex mb-8">
           <input
             type="text"
-            className={`text-lg focus:outline-none p-1 w-full border-2 border-black`}
+            className={clsx(
+              `text-lg focus:outline-none p-1 w-full border-2 border-black`,
+              {
+                "border-red-600": !(
+                  info.crLvl &&
+                  /^\d+\.?\d*$/.test(info.crLvl) &&
+                  Number(info.crLvl) !== 0
+                ),
+              }
+            )}
             value={info.crLvl}
-            onChange={(e) =>
-              setInfo({
-                ...info,
-                crLvl: e.target.value,
-              })
-            }
+            onChange={(e) => {
+              if (e.target.value.length <= 4) {
+                setInfo({
+                  ...info,
+                  crLvl: e.target.value,
+                });
+              }
+            }}
           />
           <button
             className={clsx(
@@ -117,10 +154,12 @@ export default function Home() {
               <div>(</div>
               <div>140</div>
               <div>-</div>
-              <div className="text-pink-400">{info.age}</div>
+              <div className="text-pink-400">{info.age ? info.age : "?"}</div>
               <div>)</div>
               <div>x</div>
-              <div className="text-pink-400">{info.weight}</div>
+              <div className="text-pink-400">
+                {info.weight ? info.weight : "?"}
+              </div>
               {info.weightUnit === "lbs" ? (
                 <>
                   <div>/</div>
@@ -131,7 +170,9 @@ export default function Home() {
             <div className="flex gap-1 justify-center">
               <div>72</div>
               <div>x</div>
-              <div className="text-pink-400">{info.crLvl}</div>
+              <div className="text-pink-400">
+                {info.crLvl ? info.crLvl : "?"}
+              </div>
               {info.crUnit === "umol" ? (
                 <>
                   <div>/</div>
