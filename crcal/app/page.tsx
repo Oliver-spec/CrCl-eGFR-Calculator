@@ -7,11 +7,17 @@ import clsx from "clsx";
 export default function Home() {
   const [info, setInfo] = useState({
     sex: "female",
-    age: "20",
+    age: "",
     weightUnit: "kg",
-    weight: "45",
+    weight: "",
     crUnit: "umol",
-    crLvl: "0.85",
+    crLvl: "",
+  });
+
+  const [hasTyped, setHasTyped] = useState({
+    age: false,
+    weight: false,
+    crLvl: false,
   });
 
   return (
@@ -49,14 +55,17 @@ export default function Home() {
           className={clsx(
             `text-lg focus:outline-none p-1 w-full border-2 border-black mb-4`,
             {
-              "border-red-600": !(
-                info.age &&
-                /^\d+$/.test(info.age) &&
-                Number(info.age) !== 0
-              ),
+              "border-red-600":
+                !(
+                  info.age &&
+                  /^\d+$/.test(info.age) &&
+                  Number(info.age) !== 0
+                ) && hasTyped.age,
             }
           )}
           onChange={(e) => {
+            setHasTyped({ ...hasTyped, age: true });
+
             if (e.target.value.length <= 3) {
               setInfo({ ...info, age: e.target.value });
             }
@@ -70,15 +79,18 @@ export default function Home() {
             className={clsx(
               `text-lg focus:outline-none p-1 w-full border-2 border-black`,
               {
-                "border-red-600": !(
-                  info.weight &&
-                  /^\d+\.?\d*$/.test(info.weight) &&
-                  Number(info.weight) !== 0
-                ),
+                "border-red-600":
+                  !(
+                    info.weight &&
+                    /^\d+\.?\d*$/.test(info.weight) &&
+                    Number(info.weight) !== 0
+                  ) && hasTyped.weight,
               }
             )}
             value={info.weight}
             onChange={(e) => {
+              setHasTyped({ ...hasTyped, weight: true });
+
               if (e.target.value.length <= 3) {
                 setInfo({ ...info, weight: e.target.value });
               }
@@ -111,15 +123,18 @@ export default function Home() {
             className={clsx(
               `text-lg focus:outline-none p-1 w-full border-2 border-black`,
               {
-                "border-red-600": !(
-                  info.crLvl &&
-                  /^\d+\.?\d*$/.test(info.crLvl) &&
-                  Number(info.crLvl) !== 0
-                ),
+                "border-red-600":
+                  !(
+                    info.crLvl &&
+                    /^\d+\.?\d*$/.test(info.crLvl) &&
+                    Number(info.crLvl) !== 0
+                  ) && hasTyped.crLvl,
               }
             )}
             value={info.crLvl}
             onChange={(e) => {
+              setHasTyped({ ...hasTyped, crLvl: true });
+
               if (e.target.value.length <= 4) {
                 setInfo({
                   ...info,
@@ -192,9 +207,11 @@ export default function Home() {
           <div className="flex flex-col justify-center ml-1">
             <div>=</div>
           </div>
-          <div className="flex flex-col justify-center ml-1">
-            <div className="border-b-2 border-black">{calculate(info)}</div>
-          </div>
+          {hasTyped.age && hasTyped.weight && hasTyped.crLvl ? (
+            <div className="flex flex-col justify-center ml-1">
+              <div className="border-b-2 border-black">{calculate(info)}</div>
+            </div>
+          ) : null}
         </div>
       </div>
     </main>
