@@ -91,7 +91,7 @@ export default function Home() {
             onChange={(e) => {
               setHasTyped({ ...hasTyped, weight: true });
 
-              if (e.target.value.length <= 3) {
+              if (e.target.value.length <= 4) {
                 setInfo({ ...info, weight: e.target.value });
               }
             }}
