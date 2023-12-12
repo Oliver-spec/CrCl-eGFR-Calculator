@@ -1,4 +1,4 @@
-import { Info } from "./lib/definitions";
+import { Info } from "./definitions";
 
 export default function calculate(info: Info) {
   let { weight, weightUnit, crLvl, crUnit, age, sex } = info;

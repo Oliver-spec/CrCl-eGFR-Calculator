@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import calculate from "./calculate";
+import calculate from "./lib/calculate";
 import clsx from "clsx";
 
 export default function Home() {
@@ -163,56 +163,11 @@ export default function Home() {
             mg/dL
           </button>
         </div>
-        <div className="flex justify-center">
-          <div className="flex flex-col divide-y-2 divide-black w-2/5">
-            <div className="flex gap-1 justify-center">
-              <div>(</div>
-              <div>140</div>
-              <div>-</div>
-              <div className="text-pink-400">{info.age ? info.age : "?"}</div>
-              <div>)</div>
-              <div>x</div>
-              <div className="text-pink-400">
-                {info.weight ? info.weight : "?"}
-              </div>
-              {info.weightUnit === "lbs" ? (
-                <>
-                  <div>/</div>
-                  <div>2.2</div>
-                </>
-              ) : null}
-            </div>
-            <div className="flex gap-1 justify-center">
-              <div>72</div>
-              <div>x</div>
-              <div className="text-pink-400">
-                {info.crLvl ? info.crLvl : "?"}
-              </div>
-              {info.crUnit === "umol" ? (
-                <>
-                  <div>/</div>
-                  <div>88.4</div>
-                </>
-              ) : null}
-            </div>
+        {hasTyped.age && hasTyped.crLvl && hasTyped.weight && (
+          <div className="text-center font-bold text-2xl border-2 border-black rounded p-3">
+            {calculate(info)}
           </div>
-          {info.sex === "female" ? (
-            <div className="flex flex-col justify-center ml-1">
-              <div className="flex gap-1">
-                <div>x</div>
-                <div>0.85</div>
-              </div>
-            </div>
-          ) : null}
-          <div className="flex flex-col justify-center ml-1">
-            <div>=</div>
-          </div>
-          {hasTyped.age && hasTyped.weight && hasTyped.crLvl ? (
-            <div className="flex flex-col justify-center ml-1">
-              <div className="border-b-2 border-black">{calculate(info)}</div>
-            </div>
-          ) : null}
-        </div>
+        )}
       </div>
     </main>
   );
