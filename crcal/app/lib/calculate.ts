@@ -1,10 +1,13 @@
 import { Info } from "./definitions";
 
-export default function calculate(info: Info) {
+export default function calculate(
+  info: Info,
+  setResult: (result: string) => void
+) {
   let { weight, weightUnit, crLvl, crUnit, age, sex } = info;
 
   if (!(age && weight && crLvl)) {
-    return "Missing infomation";
+    return setResult("Missing infomation");
   } else if (
     !(
       /^\d+$/.test(age) &&
@@ -15,7 +18,7 @@ export default function calculate(info: Info) {
       Number(crLvl) !== 0
     )
   ) {
-    return "Invalid information";
+    return setResult("Invalid information");
   }
 
   if (weightUnit === "lbs") {
@@ -27,14 +30,18 @@ export default function calculate(info: Info) {
   }
 
   if (sex === "male") {
-    return `${(
-      ((140 - Number(age)) * Number(weight)) /
-      (72 * Number(crLvl))
-    ).toFixed(1)} mL/min`;
+    return setResult(
+      `${(
+        ((140 - Number(age)) * Number(weight)) /
+        (72 * Number(crLvl))
+      ).toFixed(1)} mL/min`
+    );
   } else {
-    return `${(
-      (((140 - Number(age)) * Number(weight)) / (72 * Number(crLvl))) *
-      0.85
-    ).toFixed(1)} mL/min`;
+    return setResult(
+      `${(
+        (((140 - Number(age)) * Number(weight)) / (72 * Number(crLvl))) *
+        0.85
+      ).toFixed(1)} mL/min`
+    );
   }
 }

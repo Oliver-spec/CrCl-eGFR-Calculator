@@ -20,6 +20,8 @@ export default function Home() {
     crLvl: false,
   });
 
+  const [result, setResult] = useState("");
+
   return (
     <main className="flex flex-col justify-center items-center gap-4">
       <div className="w-64 mt-10 mb-5 text-center border-solid border-4 border-black p-3 text-2xl font-bold">
@@ -163,10 +165,38 @@ export default function Home() {
             mg/dL
           </button>
         </div>
-        {hasTyped.age && hasTyped.crLvl && hasTyped.weight && (
-          <div className="text-center font-bold text-2xl border-2 border-black rounded p-3">
-            {calculate(info)}
-          </div>
+        <div className="flex justify-center mb-8">
+          <button
+            className="border-2 border-black rounded w-1/2 p-2 hover:bg-gray-300"
+            onClick={() => {
+              calculate(info, setResult);
+              setHasTyped({
+                age: true,
+                weight: true,
+                crLvl: true,
+              });
+            }}
+          >
+            Calculate
+          </button>
+        </div>
+        {result && (
+          <>
+            <label htmlFor="result-box">Creatinine Clearance</label>
+            <div
+              id="result-box"
+              className={clsx(
+                "text-center font-bold text-2xl border-2 border-black rounded p-2",
+                {
+                  "border-red-600 text-red-600":
+                    result === "Missing infomation" ||
+                    result === "Invalid information",
+                }
+              )}
+            >
+              {result}
+            </div>
+          </>
         )}
       </div>
     </main>
