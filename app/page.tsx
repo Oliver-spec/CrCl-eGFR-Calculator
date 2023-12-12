@@ -55,7 +55,7 @@ export default function Home() {
           id="age-input"
           type="text"
           className={clsx(
-            `text-lg focus:outline-none p-1 w-full border-2 border-black mb-4`,
+            `rounded-none text-lg focus:outline-none p-1 w-full border-2 border-black mb-4`,
             {
               "border-red-600":
                 !(
@@ -79,7 +79,7 @@ export default function Home() {
           <input
             type="text"
             className={clsx(
-              `text-lg focus:outline-none p-1 w-full border-2 border-black`,
+              `rounded-none text-lg focus:outline-none p-1 w-full border-2 border-black`,
               {
                 "border-red-600":
                   !(
@@ -123,7 +123,7 @@ export default function Home() {
           <input
             type="text"
             className={clsx(
-              `text-lg focus:outline-none p-1 w-full border-2 border-black`,
+              `rounded-none text-lg focus:outline-none p-1 w-full border-2 border-black`,
               {
                 "border-red-600":
                   !(
