@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="flex flex-col justify-center items-center gap-4">
       <div className="w-64 mt-10 mb-5 text-center border-solid border-4 border-black p-3 text-2xl font-bold">
-        CrCal
+        CrCl Calculator
       </div>
       <div className="flex flex-col w-96">
         <label htmlFor="sex-selector">Sex</label>

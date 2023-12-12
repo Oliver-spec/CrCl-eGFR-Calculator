@@ -8,7 +8,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "CrCal",
+  title: "CrCl Calculator",
   description: "Calculate CrCl and eGFR",
 };
 
